@@ -1,0 +1,39 @@
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 2.5
+
+Lint/DuplicateMethods:
+  Enabled: false
+
+Layout/HashAlignment:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 120
+  Exclude:
+  - 'lib/verboten_keys/errors.rb'
+  - '**/*.gemspec'
+
+Metrics/BlockLength:
+  Exclude:
+  - 'Rakefile'
+  - '**/*.rake'
+  - 'spec/**/*.rb'
+  - '**/*.gemspec'
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/StringLiterals:
+  Enabled: true
+  EnforcedStyle: single_quotes
+
+Style/StringLiteralsInInterpolation:
+  Enabled: true
+  EnforcedStyle: single_quotes
