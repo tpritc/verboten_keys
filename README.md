@@ -38,7 +38,7 @@ Verboten Keys filtered out the leaking `password_digest` while leaving the rest 
 To install Verboten Keys in your app, simply add this line to your application's `Gemfile` and run `bundle install`:
 
 ```ruby
-gem 'verboten-keys'
+gem 'verboten_keys'
 ```
 
 ### Rails
@@ -51,7 +51,7 @@ If your application is using Sinatra, simply add the Verboten Keys middleware in
 
 ```ruby
 require 'sinatra'
-require 'verboten-keys'
+require 'verboten_keys'
 
 use Rack::Lint
 use VerbotenKeys::Middleware
