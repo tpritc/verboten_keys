@@ -1,12 +1,12 @@
 # Verboten Keys
 
-Verboten Keys is a last line of defense to help prevent you and your team from accidentally leaking private information via your APIs. It's Rack middleware that seamlessly integrates into any Rails or Sinatra project (or really anything that's based on Rack) and strips out any data that matches your list of forbidden keys.
+Verboten Keys is a last line of defense to help prevent you and your team from accidentally leaking private information via your APIs. It's Rack middleware that seamlessly integrates into any Rails or Sinatra application (or really anything that's based on Rack) and strips out any data that matches your list of forbidden keys.
 
-It's a quick, easy, set-it-and-forget-it way to have peace of mind that nothing's getting out of your API that should be.
+It's a quick, easy, set-it-and-forget-it way to have the peace-of-mind that nothing's getting out of your API that shouldn't be.
 
 ## What it does
 
-Imagine you've got an API endpoint that returns a user's profile, and you've accidentally serialized the user incorrectly, and now it's returning your entire user object serialized as JSON:
+Imagine you've got an API endpoint that returns a user's profile, and you've accidentally serialized the user incorrectly and it's now returning your entire user object serialized as JSON:
 
 ```
 GET /api/v1/users/123
@@ -31,7 +31,7 @@ GET /api/v1/users/123
 }
 ```
 
-Verboten Keys is your last line of defense. When all else fails, we prevent you accidentally leaking private data.
+Verboten Keys filtered out the leaking `password_digest` while leaving the rest of the request intact. When all else fails, we prevent you accidentally leaking sensitive data. Verboten Keys is your last line of defense.
 
 ## Installation
 
@@ -57,7 +57,7 @@ use Rack::Lint
 use VerbotenKeys::Middleware
 
 get '/hello' do
-  'Hello World'
+  { greeting: 'Hello, world!' }
 end
 ```
 
@@ -65,7 +65,7 @@ You should include it last, so nothing gets missed when the middleware parses an
 
 ## Configuration
 
-Every application has its own security needs, and Verboten Keys is designed to be configurable, so you can get it just so. To configure Verboten Keys, simply call its `configure` method, which takes a block and yields the current configuration:
+Every application has its own security needs, and Verboten Keys is designed to be configurable, so you can get it just so. To configure Verboten Keys, simply call its `configure` method, which yields a block with the current configuration:
 
 ```ruby
 VerbotenKeys.configure do |config|
@@ -74,7 +74,7 @@ VerbotenKeys.configure do |config|
 end
 ```
 
-The `forbidden_keys` option lets you set the keys that will be filtered out of the response. It takes an array of symbols, and will raise an error if it's not in the right format. You should include all of the columns and attributes you absolutely _do not_ want to ever leak from your API. The default value is `[]`.
+The `forbidden_keys` option lets you set the keys that will be filtered out of the response. It takes an array of symbols, and will raise an error if it's not in the right format. You should include all of the columns and attributes you absolutely do not want to ever leak from your API. The default value is `[]`, which means you need to set this up otherwise Verboten Keys won't do anything.
 
 The `strategy` option lets you pick how Verboten Keys should handle a forbidden key it finds. The default value is `:remove`. Acceptable options are `:remove` and `:nullify`:
 
