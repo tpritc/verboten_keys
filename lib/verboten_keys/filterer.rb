@@ -4,8 +4,7 @@ module VerbotenKeys
   class Filterer
     def self.filter_forbidden_keys(hash)
       hash
-        .map { |k, v| evaluate_key_value_pair(k, v) }
-        .to_h
+        .to_h { |k, v| evaluate_key_value_pair(k, v) }
         .delete_if { |k, _v| k.nil? }
     end
 

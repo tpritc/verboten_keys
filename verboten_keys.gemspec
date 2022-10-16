@@ -6,12 +6,12 @@ Gem::Specification.new do |spec|
   spec.name          = 'verboten_keys'
   spec.version       = VerbotenKeys::VERSION
   spec.authors       = ['Tom Pritchard']
-  spec.email         = ['hi@tpritc.com']
+  spec.email         = ['tom@tpritc.com']
 
   spec.summary       = 'Verboten Keys is a last line of defense to help prevent you and your team from accidentally leaking private information via your APIs.'
   spec.homepage      = 'https://github.com/tpritc/verboten_keys'
   spec.license       = 'MIT'
-  spec.required_ruby_version = Gem::Requirement.new('>= 2.5.0')
+  spec.required_ruby_version = Gem::Requirement.new('>= 2.7.0')
 
   spec.metadata['source_code_uri'] = 'https://github.com/tpritc/verboten_keys'
   spec.metadata['changelog_uri'] = 'https://github.com/tpritc/verboten_keys/blob/main/CHANGELOG.md'

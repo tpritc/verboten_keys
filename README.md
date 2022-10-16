@@ -14,13 +14,13 @@ GET /api/v1/users/123
   'id': 123,
   'name': 'Jane Doe',
   'email': 'jane.doe@example.com',
-  'password_digest': '$FEUNCqbSZIOu7e1QblI...'
+  'deepest_secret': 'Framed their sibling for a murder they commited'
 }
 ```
 
 Oh no, this is a disaster!
 
-If only there was a way to automatically filter out accidents like this! This is where Verboten Keys helps out. If you had Verboten Keys in your application, and had `password_digest` set as a forbidden key, the exact same response would look like this:
+If only there was a way to automatically filter out accidents like this! This is where Verboten Keys helps out. If you had Verboten Keys in your application, and had `deepest_secret` set as a forbidden key, the exact same response would look like this:
 
 ```
 GET /api/v1/users/123
@@ -31,7 +31,7 @@ GET /api/v1/users/123
 }
 ```
 
-Verboten Keys filtered out the leaking `password_digest` while leaving the rest of the request intact. When all else fails, we prevent you accidentally leaking sensitive data. Verboten Keys is your last line of defense.
+Verboten Keys filtered out the leaking `deepest_secret` while leaving the rest of the request intact. When all else fails, we prevent you accidentally leaking sensitive data. Verboten Keys is your last line of defense.
 
 ## Installation
 
@@ -68,8 +68,10 @@ You should include it last, so nothing gets missed when the middleware parses an
 Every application has its own security needs, and Verboten Keys is designed to be configurable, so you can get it just so. To configure Verboten Keys, simply call its `configure` method, which yields a block with the current configuration:
 
 ```ruby
+# In config/initializers/verbotten_keys.rb:
+
 VerbotenKeys.configure do |config|
-  config.forbidden_keys = [:password, :password_digest, :secret_token]
+  config.forbidden_keys = [:deepest_secret, :secret_token]
   config.strategy = :remove
 end
 ```
@@ -87,4 +89,4 @@ Bug reports and pull requests are welcome on [GitHub](https://github.com/tpritc/
 
 ## License
 
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT). If you or your organization need a custom, commercial license for any reason, [send me an email](mailto:hi@tpritc.com) and I'll be happy to set something up for you.
+The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT). If you or your organization need a custom, commercial license for any reason, [send me an email](mailto:tom@tpritc.com) and I'll be happy to set something up for you.
