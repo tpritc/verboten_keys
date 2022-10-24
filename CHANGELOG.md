@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.1 - October 24, 2022
+
+* **Fixed**: Updated the `nokogiri` dependency to protect against [CVE-2022-2309](https://nvd.nist.gov/vuln/detail/CVE-2022-2309), [CVE-2022-40304](https://nvd.nist.gov/vuln/detail/CVE-2022-40304), [CVE-2022-40303](https://nvd.nist.gov/vuln/detail/CVE-2022-40303), and [CVE-2022-37434](https://ubuntu.com/security/CVE-2022-37434).
+
 ## 1.1.0 - October 16, 2022
 
 * **New**: Support for Ruby version 3.1.

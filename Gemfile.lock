@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    verboten_keys (1.1.0)
+    verboten_keys (1.1.1)
       rack (>= 1.0, < 3)
 
 GEM
