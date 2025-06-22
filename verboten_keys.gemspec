@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.summary       = 'Verboten Keys is a last line of defense to help prevent you and your team from accidentally leaking private information via your APIs.'
   spec.homepage      = 'https://github.com/tpritc/verboten_keys'
   spec.license       = 'MIT'
-  spec.required_ruby_version = Gem::Requirement.new('>= 2.7.0')
+  spec.required_ruby_version = Gem::Requirement.new('>= 3.2.0')
 
   spec.metadata['source_code_uri'] = 'https://github.com/tpritc/verboten_keys'
   spec.metadata['changelog_uri'] = 'https://github.com/tpritc/verboten_keys/blob/main/CHANGELOG.md'
@@ -23,12 +23,12 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_runtime_dependency 'rack', '>= 1.0', '< 4'
-  spec.add_development_dependency 'activesupport', '~> 6.1'
+  spec.add_development_dependency 'activesupport'
   spec.add_development_dependency 'railties', '>= 4.2'
-  spec.add_development_dependency 'rake', '~> 13.0'
-  spec.add_development_dependency 'rspec', '~> 3.0'
-  spec.add_development_dependency 'rubocop', '~> 1.7'
-  spec.add_development_dependency 'rubocop-rake', '~> 0.5'
-  spec.add_development_dependency 'rubocop-rspec', '~> 2.3'
+  spec.add_development_dependency 'rake'
+  spec.add_development_dependency 'rspec'
+  spec.add_development_dependency 'rubocop'
+  spec.add_development_dependency 'rubocop-rake'
+  spec.add_development_dependency 'rubocop-rspec'
   spec.metadata['rubygems_mfa_required'] = 'true'
 end
