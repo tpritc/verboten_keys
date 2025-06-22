@@ -78,10 +78,11 @@ end
 
 The `forbidden_keys` option lets you set the keys that will be filtered out of the response. It takes an array of symbols, and will raise an error if it's not in the right format. You should include all of the columns and attributes you absolutely do not want to ever leak from your API. The default value is `[]`, which means you need to set this up otherwise Verboten Keys won't do anything.
 
-The `strategy` option lets you pick how Verboten Keys should handle a forbidden key it finds. The default value is `:remove`. Acceptable options are `:remove` and `:nullify`:
+The `strategy` option lets you pick how Verboten Keys should handle a forbidden key it finds. The default value is `:remove`. Acceptable options are `:remove`, `:nullify`, and `:raise`:
 
 * `:remove` removes the key-value pair from the JSON response body, so it looks like the JSON object never had the key-value pair in the first place.
 * `:nullify` leaves the key in the JSON response, but it will nullify the value, so any forbidden values will always appear to be `nil`.
+* `:raise` will raise a `VerbotenKeys::ForbiddenKeyError` if a forbidden key is found in the response body.
 
 ## Contributing
 

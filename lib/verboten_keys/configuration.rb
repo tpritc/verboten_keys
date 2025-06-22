@@ -2,7 +2,7 @@
 
 module VerbotenKeys
   class Configuration
-    STRATEGIES = %i[remove nullify].freeze
+    STRATEGIES = %i[remove nullify raise].freeze
 
     attr_accessor :forbidden_keys, :strategy
 

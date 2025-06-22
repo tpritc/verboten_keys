@@ -38,22 +38,38 @@ RSpec.describe VerbotenKeys::Middleware do
       let(:expected_body) { { id: 123, name: "Jane Doe" } }
       let(:expected_body_content_length) { expected_body.to_json.bytesize.to_s }
 
-      it "does not alter the status" do
-        expect(response.status).to eq 200
+      context "when the strategy is :remove" do
+        before do
+          VerbotenKeys.configuration.strategy = :remove
+        end
+
+        it "does not alter the status" do
+          expect(response.status).to eq 200
+        end
+
+        it "does not alter the content type" do
+          expect(response.headers["Content-Type"]).to eq "application/json"
+        end
+
+        it "alters the content length" do
+          expect(response.headers["Content-Length"]).not_to eq body_content_length
+          expect(response.headers["Content-Length"]).to eq expected_body_content_length
+        end
+
+        it "alters the body" do
+          expect(response.body).not_to eq body.to_json
+          expect(response.body).to eq expected_body.to_json
+        end
       end
 
-      it "does not alter the content type" do
-        expect(response.headers["Content-Type"]).to eq "application/json"
-      end
+      context "when the strategy is :raise" do
+        before do
+          VerbotenKeys.configuration.strategy = :raise
+        end
 
-      it "alters the content length" do
-        expect(response.headers["Content-Length"]).not_to eq body_content_length
-        expect(response.headers["Content-Length"]).to eq expected_body_content_length
-      end
-
-      it "alters the body" do
-        expect(response.body).not_to eq body.to_json
-        expect(response.body).to eq expected_body.to_json
+        it "raises a ForbiddenKeyError" do
+          expect { response }.to raise_error(VerbotenKeys::ForbiddenKeyError, /password/)
+        end
       end
     end
   end

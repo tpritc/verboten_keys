@@ -54,6 +54,16 @@ RSpec.describe VerbotenKeys::Filterer do
           end
         end
 
+        context "when the strategy is :raise" do
+          before do
+            VerbotenKeys.configuration.strategy = :raise
+          end
+
+          it "raises a ForbiddenKeyError" do
+            expect { result }.to raise_error(VerbotenKeys::ForbiddenKeyError, /password/)
+          end
+        end
+
         context "when the forbidden key is nested in another hash in the hash" do
           let(:hash) do
             {
@@ -68,18 +78,55 @@ RSpec.describe VerbotenKeys::Filterer do
             }
           end
 
-          it "is filtered" do
-            expect(result).to eq(
-              {
-                id: 123,
-                team_name: "Example Inc.",
-                owner: {
-                  id: 456,
-                  name: "Jane Doe",
-                  email: "jane.doe@example.com"
+          context "when the strategy is :remove" do
+            before do
+              VerbotenKeys.configuration.strategy = :remove
+            end
+
+            it "is filtered" do
+              expect(result).to eq(
+                {
+                  id: 123,
+                  team_name: "Example Inc.",
+                  owner: {
+                    id: 456,
+                    name: "Jane Doe",
+                    email: "jane.doe@example.com"
+                  }
                 }
-              }
-            )
+              )
+            end
+          end
+
+          context "when the strategy is :nullify" do
+            before do
+              VerbotenKeys.configuration.strategy = :nullify
+            end
+
+            it "is nullified" do
+              expect(result).to eq(
+                {
+                  id: 123,
+                  team_name: "Example Inc.",
+                  owner: {
+                    id: 456,
+                    name: "Jane Doe",
+                    email: "jane.doe@example.com",
+                    password: nil
+                  }
+                }
+              )
+            end
+          end
+
+          context "when the strategy is :raise" do
+            before do
+              VerbotenKeys.configuration.strategy = :raise
+            end
+
+            it "raises a ForbiddenKeyError" do
+              expect { result }.to raise_error(VerbotenKeys::ForbiddenKeyError, /password/)
+            end
           end
         end
 
@@ -105,25 +152,70 @@ RSpec.describe VerbotenKeys::Filterer do
             }
           end
 
-          it "is filtered" do
-            expect(result).to eq(
-              {
-                id: 123,
-                team_name: "Example Inc.",
-                members: [
-                  {
-                    id: 456,
-                    name: "Jane Doe",
-                    email: "jane.doe@example.com"
-                  },
-                  {
-                    id: 789,
-                    name: "John Smith",
-                    email: "john.smith@example.com"
-                  }
-                ]
-              }
-            )
+          context "when the strategy is :remove" do
+            before do
+              VerbotenKeys.configuration.strategy = :remove
+            end
+
+            it "is filtered" do
+              expect(result).to eq(
+                {
+                  id: 123,
+                  team_name: "Example Inc.",
+                  members: [
+                    {
+                      id: 456,
+                      name: "Jane Doe",
+                      email: "jane.doe@example.com"
+                    },
+                    {
+                      id: 789,
+                      name: "John Smith",
+                      email: "john.smith@example.com"
+                    }
+                  ]
+                }
+              )
+            end
+          end
+
+          context "when the strategy is :nullify" do
+            before do
+              VerbotenKeys.configuration.strategy = :nullify
+            end
+
+            it "is nullified" do
+              expect(result).to eq(
+                {
+                  id: 123,
+                  team_name: "Example Inc.",
+                  members: [
+                    {
+                      id: 456,
+                      name: "Jane Doe",
+                      email: "jane.doe@example.com",
+                      password: nil
+                    },
+                    {
+                      id: 789,
+                      name: "John Smith",
+                      email: "john.smith@example.com",
+                      password: nil
+                    }
+                  ]
+                }
+              )
+            end
+          end
+
+          context "when the strategy is :raise" do
+            before do
+              VerbotenKeys.configuration.strategy = :raise
+            end
+
+            it "raises a ForbiddenKeyError" do
+              expect { result }.to raise_error(VerbotenKeys::ForbiddenKeyError, /password/)
+            end
           end
         end
       end

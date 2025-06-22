@@ -10,6 +10,11 @@ require_relative "verboten_keys/middleware"
 require_relative "verboten_keys/railtie" if defined?(Rails)
 
 module VerbotenKeys
+  class ForbiddenKeyError < StandardError
+    def initialize(key)
+      super("Forbidden key '#{key}' found in response")
+    end
+  end
   class << self
     attr_accessor :configuration
 

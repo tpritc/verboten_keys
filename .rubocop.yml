@@ -25,6 +25,9 @@ Metrics/BlockLength:
   - 'spec/**/*.rb'
   - '**/*.gemspec'
 
+Metrics/AbcSize:
+  Enabled: false
+
 Metrics/CyclomaticComplexity:
   Enabled: false
 

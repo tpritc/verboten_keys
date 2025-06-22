@@ -3,8 +3,8 @@
 RSpec.describe VerbotenKeys::Configuration do
   describe "constants" do
     describe "STRATEGIES" do
-      it "equals [:remove, :nullify]" do
-        expect(VerbotenKeys::Configuration::STRATEGIES).to eq %i[remove nullify]
+      it "equals [:remove, :nullify, :raise]" do
+        expect(VerbotenKeys::Configuration::STRATEGIES).to eq %i[remove nullify raise]
       end
     end
   end
@@ -67,13 +67,22 @@ RSpec.describe VerbotenKeys::Configuration do
       end
 
       context "when it is set to a value in the acceptable strategies" do
-        it "does not raise an error" do
-          expect { configuration.strategy = :nullify }.not_to raise_error
+        it "accepts :remove strategy" do
+          expect { configuration.strategy = :remove }.not_to raise_error
+          configuration.strategy = :remove
+          expect(configuration.strategy).to eq :remove
         end
 
-        it "is equal to what it was set as" do
+        it "accepts :nullify strategy" do
+          expect { configuration.strategy = :nullify }.not_to raise_error
           configuration.strategy = :nullify
           expect(configuration.strategy).to eq :nullify
+        end
+
+        it "accepts :raise strategy" do
+          expect { configuration.strategy = :raise }.not_to raise_error
+          configuration.strategy = :raise
+          expect(configuration.strategy).to eq :raise
         end
       end
     end
