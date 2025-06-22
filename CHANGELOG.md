@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.2.0 - June 22, 2025
+
+* **New**: Added `:raise` strategy option. When set, Verboten Keys will raise a `VerbotenKeys::ForbiddenKeyError` if a forbidden key is found in the response body.
+* **New**: Added a configuration option, `include_rails_filter_parameters`, to automatically include Rails' `config.filter_parameters` in the forbidden keys list.
+* **New**: Support for Ruby versions 3.2, 3.3, and 3.4.
+* **Removed**: I've removed support for Ruby 2.7, 3.0, and 3.1. The new minimum supported Ruby version is 3.2.0.
+
 ## 1.1.1 - October 24, 2022
 
 * **Fixed**: Updated the `nokogiri` dependency to protect against [CVE-2022-2309](https://nvd.nist.gov/vuln/detail/CVE-2022-2309), [CVE-2022-40304](https://nvd.nist.gov/vuln/detail/CVE-2022-40304), [CVE-2022-40303](https://nvd.nist.gov/vuln/detail/CVE-2022-40303), and [CVE-2022-37434](https://ubuntu.com/security/CVE-2022-37434).

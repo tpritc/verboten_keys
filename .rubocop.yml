@@ -1,6 +1,10 @@
 AllCops:
   NewCops: enable
-  TargetRubyVersion: 2.7
+  SuggestExtensions: false
+  TargetRubyVersion: 3.2
+
+Gemspec/DevelopmentDependencies:
+  Enabled: false
 
 Lint/DuplicateMethods:
   Enabled: false
@@ -21,6 +25,9 @@ Metrics/BlockLength:
   - 'spec/**/*.rb'
   - '**/*.gemspec'
 
+Metrics/AbcSize:
+  Enabled: false
+
 Metrics/CyclomaticComplexity:
   Enabled: false
 
@@ -32,8 +39,8 @@ Style/Documentation:
 
 Style/StringLiterals:
   Enabled: true
-  EnforcedStyle: single_quotes
+  EnforcedStyle: double_quotes
 
 Style/StringLiteralsInInterpolation:
   Enabled: true
-  EnforcedStyle: single_quotes
+  EnforcedStyle: double_quotes

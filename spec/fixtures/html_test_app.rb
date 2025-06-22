@@ -11,8 +11,8 @@ class HtmlTestApp
     [
       200,
       {
-        'Content-Type' => 'text/html',
-        'Content-Length' => html.bytesize.to_s
+        "Content-Type" => "text/html",
+        "Content-Length" => html.bytesize.to_s
       },
       [html]
     ]

@@ -17,6 +17,8 @@ module VerbotenKeys
           return [nil, nil]
         when :nullify
           return [key, nil]
+        when :raise
+          raise VerbotenKeys::ForbiddenKeyError, key
         else
           raise VerbotenKeys::Errors::StrategyNotFoundError(VerbotenKeys.configuration.strategy)
         end

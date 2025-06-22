@@ -2,13 +2,28 @@
 
 module VerbotenKeys
   class Configuration
-    STRATEGIES = %i[remove nullify].freeze
+    STRATEGIES = %i[remove nullify raise].freeze
 
-    attr_accessor :forbidden_keys, :strategy
+    attr_accessor :strategy, :include_rails_filter_parameters
+    attr_writer :forbidden_keys
 
     def initialize
       @forbidden_keys = []
       @strategy = :remove
+      @include_rails_filter_parameters = false
+    end
+
+    def forbidden_keys
+      keys = @forbidden_keys.dup
+
+      if @include_rails_filter_parameters
+        raise VerbotenKeys::Errors::RailsNotAvailableError unless defined?(Rails)
+
+        rails_params = Rails.application.config.filter_parameters.map(&:to_sym)
+        keys = (keys + rails_params).uniq
+      end
+
+      keys
     end
 
     def forbidden_keys=(new_forbidden_keys)
