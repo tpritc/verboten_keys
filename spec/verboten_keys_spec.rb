@@ -45,10 +45,10 @@ RSpec.describe VerbotenKeys do
 
       it "can enable Rails filter parameters integration" do
         VerbotenKeys.configure do |config|
-          config.use_rails_filter_parameters = true
+          config.include_rails_filter_parameters = true
         end
 
-        expect(VerbotenKeys.configuration.use_rails_filter_parameters).to eq true
+        expect(VerbotenKeys.configuration.include_rails_filter_parameters).to eq true
       end
     end
 
@@ -56,14 +56,14 @@ RSpec.describe VerbotenKeys do
       before do
         VerbotenKeys.configuration.forbidden_keys = [:password]
         VerbotenKeys.configuration.strategy = :nullify
-        VerbotenKeys.configuration.use_rails_filter_parameters = true
+        VerbotenKeys.configuration.include_rails_filter_parameters = true
         VerbotenKeys.reset
       end
 
       it "resets the configuration to default values" do
         expect(VerbotenKeys.configuration.forbidden_keys).to eq []
         expect(VerbotenKeys.configuration.strategy).to eq :remove
-        expect(VerbotenKeys.configuration.use_rails_filter_parameters).to eq false
+        expect(VerbotenKeys.configuration.include_rails_filter_parameters).to eq false
       end
     end
   end

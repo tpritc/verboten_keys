@@ -34,7 +34,7 @@ module VerbotenKeys
 
     class RailsNotAvailableError < StandardError
       def initialize
-        super("Rails integration is enabled but Rails is not available. Either disable use_rails_filter_parameters or ensure Rails is loaded.")
+        super("Rails integration is enabled but Rails is not available. Either disable include_rails_filter_parameters or ensure Rails is loaded.")
       end
     end
   end

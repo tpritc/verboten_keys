@@ -12,18 +12,18 @@ RSpec.describe VerbotenKeys::Configuration do
   describe "attributes" do
     let(:configuration) { VerbotenKeys::Configuration.new }
 
-    describe "use_rails_filter_parameters" do
+    describe "include_rails_filter_parameters" do
       it "exists" do
-        expect(configuration).to respond_to :use_rails_filter_parameters
+        expect(configuration).to respond_to :include_rails_filter_parameters
       end
 
       it "defaults to false" do
-        expect(configuration.use_rails_filter_parameters).to eq false
+        expect(configuration.include_rails_filter_parameters).to eq false
       end
 
       it "can be set to true" do
-        configuration.use_rails_filter_parameters = true
-        expect(configuration.use_rails_filter_parameters).to eq true
+        configuration.include_rails_filter_parameters = true
+        expect(configuration.include_rails_filter_parameters).to eq true
       end
     end
 
@@ -61,9 +61,9 @@ RSpec.describe VerbotenKeys::Configuration do
         end
       end
 
-      context "when use_rails_filter_parameters is enabled" do
+      context "when include_rails_filter_parameters is enabled" do
         before do
-          configuration.use_rails_filter_parameters = true
+          configuration.include_rails_filter_parameters = true
         end
 
         context "when Rails is not available" do
@@ -170,8 +170,8 @@ RSpec.describe VerbotenKeys::Configuration do
         expect(configuration.strategy).to eq :remove
       end
 
-      it "sets use_rails_filter_parameters to its default value" do
-        expect(configuration.use_rails_filter_parameters).to eq false
+      it "sets include_rails_filter_parameters to its default value" do
+        expect(configuration.include_rails_filter_parameters).to eq false
       end
     end
   end
