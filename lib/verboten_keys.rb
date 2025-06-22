@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-require 'rack'
+require "rack"
 
-require_relative 'verboten_keys/version'
-require_relative 'verboten_keys/errors'
-require_relative 'verboten_keys/configuration'
-require_relative 'verboten_keys/filterer'
-require_relative 'verboten_keys/middleware'
-require_relative 'verboten_keys/railtie' if defined?(::Rails)
+require_relative "verboten_keys/version"
+require_relative "verboten_keys/errors"
+require_relative "verboten_keys/configuration"
+require_relative "verboten_keys/filterer"
+require_relative "verboten_keys/middleware"
+require_relative "verboten_keys/railtie" if defined?(Rails)
 
 module VerbotenKeys
   class << self

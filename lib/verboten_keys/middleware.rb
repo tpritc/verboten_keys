@@ -24,7 +24,7 @@ module VerbotenKeys
 
       new_response = VerbotenKeys::Filterer.filter_forbidden_keys(response_body_as_a_hash).to_json
 
-      @headers['Content-Length'] = new_response.bytesize.to_s
+      @headers["Content-Length"] = new_response.bytesize.to_s
       @response = [new_response]
     end
 
@@ -34,16 +34,16 @@ module VerbotenKeys
     # @return [Boolean] True if the content type of the response if JSON, and
     #   false if it is not.
     def content_type_is_json?
-      return false if @headers['Content-Type'].nil?
+      return false if @headers["Content-Type"].nil?
 
-      @headers['Content-Type'].split(';').first == 'application/json'
+      @headers["Content-Type"].split(";").first == "application/json"
     end
 
     def response_body_as_a_hash
       if @response.is_a? Array
-        JSON.parse(@response.first || '{}')
+        JSON.parse(@response.first || "{}")
       else
-        JSON.parse(@response.body || '{}')
+        JSON.parse(@response.body || "{}")
       end
     end
   end
