@@ -3,6 +3,8 @@
 ## 1.2.0 - June 22, 2025
 
 * **New**: Added `:raise` strategy option. When set, Verboten Keys will raise a `VerbotenKeys::ForbiddenKeyError` if a forbidden key is found in the response body.
+* **New**: Added a configuration option, `use_rails_filter_parameters`, to automatically include Rails' `config.filter_parameters` in the forbidden keys list.
+* **New**: Support for Ruby versions 3.2, 3.3, and 3.4.
 * **Removed**: I've removed support for Ruby 2.7, 3.0, and 3.1. The new minimum supported Ruby version is 3.2.0.
 
 ## 1.1.1 - October 24, 2022

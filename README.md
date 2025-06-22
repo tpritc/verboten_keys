@@ -68,11 +68,12 @@ You should include it last, so nothing gets missed when the middleware parses an
 Every application has its own security needs, and Verboten Keys is designed to be configurable, so you can get it just so. To configure Verboten Keys, simply call its `configure` method, which yields a block with the current configuration:
 
 ```ruby
-# In config/initializers/verbotten_keys.rb:
+# In config/initializers/verboten_keys.rb:
 
 VerbotenKeys.configure do |config|
   config.forbidden_keys = [:deepest_secret, :secret_token]
   config.strategy = :remove
+  config.use_rails_filter_parameters = true
 end
 ```
 
@@ -83,6 +84,11 @@ The `strategy` option lets you pick how Verboten Keys should handle a forbidden 
 * `:remove` removes the key-value pair from the JSON response body, so it looks like the JSON object never had the key-value pair in the first place.
 * `:nullify` leaves the key in the JSON response, but it will nullify the value, so any forbidden values will always appear to be `nil`.
 * `:raise` will raise a `VerbotenKeys::ForbiddenKeyError` if a forbidden key is found in the response body.
+
+The `use_rails_filter_parameters` option automatically includes Rails' existing `config.filter_parameters` in the forbidden keys list. The default value is `false`. When enabled with `true`, Verboten Keys automatically merges Rails' filter parameters with any custom `forbidden_keys` you specify.
+
+> [!WARNING]
+> This option is only available for Rails apps. If you enable it in a non-Rails app, it will raise an error.
 
 ## Contributing
 

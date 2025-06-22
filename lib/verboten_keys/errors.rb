@@ -31,5 +31,11 @@ module VerbotenKeys
         super("VerbotenKeys' strategy must be a valid option. You passed in :#{invalid_strategy}, but the only valid options are: #{VerbotenKeys::Configuration::STRATEGIES}.")
       end
     end
+
+    class RailsNotAvailableError < StandardError
+      def initialize
+        super("Rails integration is enabled but Rails is not available. Either disable use_rails_filter_parameters or ensure Rails is loaded.")
+      end
+    end
   end
 end

@@ -12,6 +12,21 @@ RSpec.describe VerbotenKeys::Configuration do
   describe "attributes" do
     let(:configuration) { VerbotenKeys::Configuration.new }
 
+    describe "use_rails_filter_parameters" do
+      it "exists" do
+        expect(configuration).to respond_to :use_rails_filter_parameters
+      end
+
+      it "defaults to false" do
+        expect(configuration.use_rails_filter_parameters).to eq false
+      end
+
+      it "can be set to true" do
+        configuration.use_rails_filter_parameters = true
+        expect(configuration.use_rails_filter_parameters).to eq true
+      end
+    end
+
     describe "forbidden_keys" do
       it "exists" do
         expect(configuration).to respond_to :forbidden_keys
@@ -42,6 +57,61 @@ RSpec.describe VerbotenKeys::Configuration do
           it "is equal to what it was set as" do
             configuration.forbidden_keys = %i[password password_digest]
             expect(configuration.forbidden_keys).to eq %i[password password_digest]
+          end
+        end
+      end
+
+      context "when use_rails_filter_parameters is enabled" do
+        before do
+          configuration.use_rails_filter_parameters = true
+        end
+
+        context "when Rails is not available" do
+          before do
+            hide_const("Rails") if defined?(Rails)
+          end
+
+          it "raises an error" do
+            expect { configuration.forbidden_keys }.to raise_error(VerbotenKeys::Errors::RailsNotAvailableError)
+          end
+        end
+
+        context "when Rails is available" do
+          let(:mock_rails) { double("Rails") }
+          let(:mock_app) { double("App") }
+          let(:mock_config) { double("Config") }
+
+          before do
+            stub_const("Rails", mock_rails)
+            allow(mock_rails).to receive(:application).and_return(mock_app)
+            allow(mock_app).to receive(:config).and_return(mock_config)
+            allow(mock_config).to receive(:filter_parameters).and_return(%i[password secret])
+          end
+
+          context "when no custom forbidden_keys are set" do
+            it "returns Rails filter_parameters" do
+              expect(configuration.forbidden_keys).to eq %i[password secret]
+            end
+          end
+
+          context "when custom forbidden_keys are set" do
+            before do
+              configuration.forbidden_keys = %i[api_key]
+            end
+
+            it "merges custom keys with Rails filter_parameters" do
+              expect(configuration.forbidden_keys).to eq %i[api_key password secret]
+            end
+          end
+
+          context "when there are duplicate keys" do
+            before do
+              configuration.forbidden_keys = %i[password api_key]
+            end
+
+            it "removes duplicates" do
+              expect(configuration.forbidden_keys).to eq %i[password api_key secret]
+            end
           end
         end
       end
@@ -98,6 +168,10 @@ RSpec.describe VerbotenKeys::Configuration do
 
       it "sets strategy to its default value" do
         expect(configuration.strategy).to eq :remove
+      end
+
+      it "sets use_rails_filter_parameters to its default value" do
+        expect(configuration.use_rails_filter_parameters).to eq false
       end
     end
   end
