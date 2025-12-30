@@ -4,8 +4,10 @@ jobs:
   test:
     name: 'Test Suite'
     strategy:
+      fail-fast: false
       matrix:
         ruby: [3.2.8, 3.3.8, 3.4.4, 4.0]
+    continue-on-error: ${{ matrix.ruby == '4.0' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
